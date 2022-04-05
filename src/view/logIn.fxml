@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.logInController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="400.0">
+         <children>
+            <Label fx:id="loginLbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="139.0" text="Log-In" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="locationLbl" prefHeight="46.0" prefWidth="130.0" text="Location:">
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="zoneLbl" contentDisplay="CENTER" prefHeight="40.0" prefWidth="250.0" text="(Zone Holder)">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="userNameLbl" prefHeight="46.0" prefWidth="130.0" text="Username:">
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="10.0" top="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userNameTxt">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="139.0" prefHeight="50.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="passwordLbl" prefHeight="45.0" prefWidth="127.0" text="Password:">
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="10.0" top="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="passwordTxt">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="400.0" spacing="20.0">
+               <children>
+                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitHandler" text="Submit" />
+                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelHandler" text="Cancel" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
