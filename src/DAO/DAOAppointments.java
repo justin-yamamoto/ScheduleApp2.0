@@ -273,4 +273,85 @@ public abstract class DAOAppointments {
         }
     }
 
+    /**Get list of appointments by appointment ID. */
+    public static ObservableList<Appointments> getAppointmentsByAppointmentID(int appointmentId) throws SQLException {
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE Appointment_ID=?;";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);;
+
+        ps.setInt(1, appointmentId);
+
+        try {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+
+            // Forward scroll resultSet
+            while (rs.next()) {
+                Appointments newAppointment = new Appointments(
+                rs.getInt("Appointment_ID"),
+                rs.getString("Title"),
+                rs.getString("Description"),
+                rs.getString("Location"),
+                rs.getString("Type"),
+                        rs.getTimestamp("Start").toLocalDateTime(),
+                        rs.getTimestamp("End").toLocalDateTime(),
+                rs.getInt("Customer_ID"),
+                rs.getInt("User_ID"),
+                        rs.getInt("Contact_ID")
+
+                );
+
+
+                appointments.add(newAppointment);
+
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**Get list of appointments by appointment title. */
+    public static ObservableList<Appointments> getAppointmentsByAppointmentTitle(String title) throws SQLException {
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE TITLE LIKE '" + title +"%'";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);;
+
+
+        try {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+
+            // Forward scroll resultSet
+            while (rs.next()) {
+                Appointments newAppointment = new Appointments(
+                        rs.getInt("Appointment_ID"),
+                        rs.getString("Title"),
+                        rs.getString("Description"),
+                        rs.getString("Location"),
+                        rs.getString("Type"),
+                        rs.getTimestamp("Start").toLocalDateTime(),
+                        rs.getTimestamp("End").toLocalDateTime(),
+                        rs.getInt("Customer_ID"),
+                        rs.getInt("User_ID"),
+                        rs.getInt("Contact_ID")
+
+                );
+
+
+                appointments.add(newAppointment);
+
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 }

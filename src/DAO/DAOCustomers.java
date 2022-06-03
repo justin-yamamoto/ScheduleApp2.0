@@ -160,7 +160,6 @@ public class DAOCustomers {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);;
 
 
-
         try {
             ps.execute();
             ResultSet rs = ps.getResultSet();

@@ -60,6 +60,7 @@ public class mainMenuController implements Initializable {
     public Button deleteBtn1;
     public Button contactSBtn;
     public TextField customerSearchTxt;
+    public TextField appointmentsSearchTxt;
     Stage stage;
     public Button exitBtn;
 
@@ -348,4 +349,19 @@ public class mainMenuController implements Initializable {
 
     }
 
+    public void getAppointmentsSearchResults(ActionEvent actionEvent) throws SQLException {
+        if (appointmentsSearchTxt.getText().isEmpty()) {
+
+            appointmentsView.setItems(DAOAppointments.getAllAppointments());
+        }
+        else if (appointmentsSearchTxt.getText().matches("[0-9]")){
+            int r = Integer.parseInt(appointmentsSearchTxt.getText());
+
+            appointmentsView.setItems(DAOAppointments.getAppointmentsByAppointmentID(r));
+        }
+        else{
+            String q = appointmentsSearchTxt.getText();
+            appointmentsView.setItems(DAOAppointments.getAppointmentsByAppointmentTitle(q));
+        }
+    }
 }
