@@ -12,12 +12,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Customers;
+
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+
+
 
 /**This class presents data for customers and appointments.*/
 public class mainMenuController implements Initializable {
@@ -54,6 +59,7 @@ public class mainMenuController implements Initializable {
     public Button updateBtn1;
     public Button deleteBtn1;
     public Button contactSBtn;
+    public TextField customerSearchTxt;
     Stage stage;
     public Button exitBtn;
 
@@ -309,7 +315,7 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
-    /**Load Customer schedule Form*/
+    /**Load Customer schedule Form. */
     public void customerScheduleHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/customerSchedule.fxml"));
@@ -319,4 +325,27 @@ public class mainMenuController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    /**Search customer list by id or name. */
+    public void getCustomerSearchResults(ActionEvent actionEvent) throws SQLException {
+        if (customerSearchTxt.getText().isEmpty()){
+            customerRecordsView.setItems(DAOCustomers.getAllCustomers());
+        }
+        else if (customerSearchTxt.getText().matches("[0-9]")){
+
+            int r = Integer.parseInt(customerSearchTxt.getText());
+
+            customerRecordsView.setItems(DAOCustomers.getCustomersByCustomerID(r));
+
+
+
+        }else{
+            String q = customerSearchTxt.getText();
+            customerRecordsView.setItems(DAOCustomers.getCustomersByCustomerName(q));
+
+
+        }
+
+    }
+
 }

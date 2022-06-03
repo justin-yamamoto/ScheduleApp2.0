@@ -120,11 +120,46 @@ public class DAOCustomers {
     public static ObservableList<Customers> getCustomersByCustomerID(int customerId) throws SQLException {
         ObservableList<Customers> customers = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM CUSTOMERS;";
+        String sql = "SELECT * FROM CUSTOMERS, FIRST_LEVEL_DIVISIONS, COUNTRIES WHERE CUSTOMERS.DIVISION_ID = FIRST_LEVEL_DIVISIONS.DIVISION_ID AND FIRST_LEVEL_DIVISIONS.COUNTRY_ID = COUNTRIES.COUNTRY_ID AND CUSTOMER_ID=?;";
 
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);;
 
         ps.setInt(1, customerId);
+
+        try {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+
+            // Forward scroll resultSet
+            while (rs.next()) {
+                Customers newCustomer = new Customers(
+                        rs.getInt("Customer_ID"),
+                        rs.getString("Customer_Name"),
+                        rs.getString("Address"),
+                        rs.getString("Postal_Code"),
+                        rs.getString("Phone"),
+                        rs.getString("Country"),
+                        rs.getString("Division")
+
+                );
+
+                customers.add(newCustomer);
+            }
+            return customers;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    /**Get all customers by customer Name. */
+    public static ObservableList<Customers> getCustomersByCustomerName(String customerName) throws SQLException {
+        ObservableList<Customers> customers = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM CUSTOMERS, FIRST_LEVEL_DIVISIONS, COUNTRIES WHERE CUSTOMERS.DIVISION_ID = FIRST_LEVEL_DIVISIONS.DIVISION_ID AND FIRST_LEVEL_DIVISIONS.COUNTRY_ID = COUNTRIES.COUNTRY_ID AND CUSTOMER_NAME LIKE '" + customerName +"%'";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);;
+
+
 
         try {
             ps.execute();
